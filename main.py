@@ -77,7 +77,9 @@ def revolverspin():
 
 # Rounds and Autoplay functions.
 def oneround(userarray):
-    for user in userarray:
+    randomUserList = userarray.copy()
+    rand.shuffle(randomUserList)
+    for user in randomUserList:
         if len(userarray) == 1:
             print(user, "has won!")
             divider()
@@ -85,6 +87,9 @@ def oneround(userarray):
         isBroOkay = shootGun()
         if isBroOkay:
             print(user, "has died. (skill issue)")
+            continueChoice = input("Do you want to continue? (y/n) ")
+            if continueChoice == "n":
+                return "n"
             divider()
             users.remove(user)
             break
@@ -103,7 +108,7 @@ def autoplay(userarray):
     while True:
         print("Round", roundCount)
         divider()
-        if oneround(userarray) == True:
+        if oneround(userarray) == True or oneround(userarray) == "n":
             return
         else:
             roundCount += 1
